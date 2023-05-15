@@ -1,0 +1,4 @@
+FROM jboss/wildfly
+COPY target/*.war /opt/jboss/wildfly/standalone/deployments/
+
+FROM: --> It is our minimal base image expected to contai

@@ -1,0 +1,5 @@
+FROM  tomcat:9.0.62-jdk17-corretto 
+      COPY  target/*war  /usr/local/tomcat/ 
+      ADD target/*war  /usr/local/tomcat/
+      ADD https://172.13.0.35:8081/ebay-releases/app.war /usr/local/tomcat/ 
+        sudo usermod -G docker jenkins 

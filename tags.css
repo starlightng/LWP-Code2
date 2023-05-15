@@ -1,0 +1,12 @@
+=# Dockerfile1 = image1
+FROM centos 
+RUN mkdir /app
+RUN touch /app/test.sh
+RUN echo mylandmarktech >> /app/test.sh
+COPY . .
+CMD ["echo" ,"From CMD DevOps 1st"]
+CMD ["echo" ,"From CMD DockerFile last"] 
+
+=# Dockerfile2 = image2
+FROM ubuntu
+ENTRYPOINT ["echo" ,"FROM DockerFile"]
