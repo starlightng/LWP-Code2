@@ -1,0 +1,52 @@
+public static void main(String[] args) {
+        // Replace with your actual payment gateway API endpoint
+        String paymentGatewayEndpoint = "https://api.examplepaymentgateway.com/payments";
+
+        // Replace with your actual API credentials or authentication tokens
+        String apiKey = "your_api_key_here";
+        String apiSecret = "your_api_secret_here";
+
+        // Sample payment details (replace with actual data from your application)
+        double amount = 50.00;
+        String cardNumber = "4111111111111111";
+        String cardExpiry = "12/25";
+        String cardCVV = "123";
+
+        try {
+            // Create the HTTP client
+            HttpClient httpClient = HttpClient.newHttpClient();
+
+            // Prepare the payment request payload
+            Map<String, String> paymentData = new HashMap<>();
+            paymentData.put("amount", String.valueOf(amount));
+            paymentData.put("card_number", cardNumber);
+            paymentData.put("card_expiry", cardExpiry);
+            paymentData.put("card_cvv", cardCVV);
+
+            // Build the payment request
+            HttpRequest paymentRequest = HttpRequest.newBuilder()
+                    .uri(new URI(paymentGatewayEndpoint))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer " + apiKey + ":" + apiSecret)
+                    .POST(HttpRequest.BodyPublishers.ofString(mapToJson(paymentData)))
+                    .build();
+
+            // Send the payment request and get the response
+            HttpResponse<String> paymentResponse = httpClient.send(paymentRequest, HttpResponse.BodyHandlers.ofString());
+
+            // Process the payment response
+            int statusCode = paymentResponse.statusCode();
+            String responseBody = paymentResponse.body();
+
+            if (statusCode == 200) {
+                System.out.println("Payment successful!");
+                System.out.println("Response: " + responseBody);
+            } else {
+                System.out.println("Payment failed.");
+                System.out.println("Status code: " + statusCode);
+                System.out.println("Response: " + responseBody);
+            }
+        } catch (URISyntaxException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
