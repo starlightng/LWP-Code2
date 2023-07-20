@@ -1,0 +1,23 @@
+class User {
+    private String name;
+    private String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    // Getters and setters (omitted for brevity)
+
+    @Override
+    public String toString() {
+        return name + " (" + email + ")";
+    }
+}
+
+public class Checkout {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Simulate product catalog
+        Product product1 = new Product("Product 1", 20.0, 2);
